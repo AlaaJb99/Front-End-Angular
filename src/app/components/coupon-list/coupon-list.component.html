@@ -1,0 +1,10 @@
+<p>coupon-list works!</p>
+<div class="card" style="width: 18rem;" *ngFor="let coupon of coupons">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{ coupon.title }}</h5>
+        <p class="card-text">{{ coupon.description }}</p>
+        <a href="/customer/coupon" class="btn btn-primary">View</a>
+    </div>
+</div>
+
