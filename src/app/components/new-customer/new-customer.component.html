@@ -1,0 +1,78 @@
+<div class="container">
+    <h1>Add New Customer Form</h1>
+
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">Create Customer Account</h4>
+            <form [formGroup]="customerForm" (ngSubmit)="onSubmit()">
+                <div class="form-group input-group mb-3">
+                    <span class="input-group-text"> <i class="bi bi-person-vcard"></i></span>
+                    <input name="" class="form-control" placeholder="ID Number" type="text" formControlName="id"
+                        required (keypress)="idPress($event)"
+                        [ngClass]="{ 'is-invalid': (submitted && f.id.invalid) || (!f.id.pristine && f.id.invalid) }">
+                    <!-- Validation messages -->
+                    <div class="invalid-feedback" *ngIf="f.id.errors">
+                        <div *ngIf="f.id.errors?.['required']">ID number is required </div>
+                        <div *ngIf="f.id.errors?.['minlength'] || f.id.errors?.['maxlength']">must contain 9 numbers
+                        </div>
+                    </div>
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input type="text" aria-label="First name" class="form-control" placeholder="First name"
+                        formControlName="firstName" required (keypress)="firstLastPress($event)"
+                        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                    <input type="text" aria-label="Last name" class="form-control" placeholder="Last name"
+                        formControlName="lastName" required (keypress)="firstLastPress($event)"
+                        [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+
+                    <div class="invalid-feedback" role="alert" *ngIf="f.firstName.errors || f.lastName.errors">
+                        <div *ngIf="submitted && (f.firstName.errors?.['required'] || f.lastName.errors?.['required'])">
+                            First & Last Name is required </div>
+                        <div *ngIf="submitted && f.firstName.errors?.['pattern']">First & Last Name contains just
+                            letters </div>
+                    </div>
+
+                </div><!-- form-group// -->
+
+                <div class="form-group input-group mb-3">
+                    <span class="input-group-text"> <i class="bi bi-envelope-at"></i> </span>
+                    <input class="form-control" placeholder="Email address" type="email" formControlName="email"
+                        required [ngClass]="{ 'is-invalid': (submitted && f.email.errors || emailExists) }">
+                    <div class="invalid-feedback" *ngIf="f.email.errors">
+                        Email is required
+                    </div>
+                    <div class="invalid-feedback" *ngIf="emailExists">
+                        There a customer with this email
+                    </div>
+
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group mb-3">
+                    <span class="input-group-text"> <i class="bi bi-lock"></i> </span>
+                    <input class="form-control" placeholder="Password" type="password" formControlName="password"
+                        required [ngClass]="{ 'is-invalid': (submitted && f.password.errors) }">
+
+                    <div class="invalid-feedback" *ngIf="submitted && f.password.errors">
+                        <div *ngIf="f.password.errors?.['required']">Password is required</div>
+                        <div *ngIf="f.password.errors?.['minlength']">Password must contain 8 characters</div>
+                    </div>
+
+
+                </div> <!-- form-group// -->
+
+                <div class="form-group mb-3 text-center">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="bi bi-check"></i>
+                        Submit</button>
+                </div> <!-- form-group// -->
+                
+            </form>
+        </article>
+    </div>
+
+
+    <!-- [disabled]="!customerForm.valid" -->
+
+</div>

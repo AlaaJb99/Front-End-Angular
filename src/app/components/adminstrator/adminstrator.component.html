@@ -17,7 +17,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#submenu1" data-bs-toggle="collapse" aria-expanded="false" class="nav-link px-0 align-middle dropdown-toggle collapsed white">
+                        <a href="#submenu1" data-bs-toggle="collapse" aria-expanded="false"
+                            class="nav-link px-0 align-middle dropdown-toggle collapsed white">
                             <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline white">Manage
                                 Companies</span>
                         </a>
@@ -33,7 +34,8 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle dropdown-toggle white">
+                        <a href="#submenu2" data-bs-toggle="collapse"
+                            class="nav-link px-0 align-middle dropdown-toggle white">
                             <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Manage
                                 Customers</span></a>
                         <ul class="collapse nav flex-column ms-1 px-2" id="submenu2" data-bs-parent="#menu">
@@ -42,7 +44,8 @@
                                         class="d-none d-sm-inline">Customers</span></a>
                             </li>
                             <li>
-                                <a href="/admin/newcustomer" class="nav-link white"> <span class="d-none d-sm-inline">New
+                                <a href="/admin/newcustomer" class="nav-link white"> <span
+                                        class="d-none d-sm-inline">New
                                         Customer</span></a>
                             </li>
                         </ul>
@@ -52,7 +55,10 @@
             </div>
         </div>
         <div class="col py-3">
-           <h1 class="align-text-center"></h1>
+            <h1 class="align-text-center"> Welcome Adminstrator </h1>
+            <div *ngIf="isLoggedIn">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
 </div>

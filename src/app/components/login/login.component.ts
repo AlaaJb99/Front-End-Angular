@@ -9,46 +9,64 @@ import { AuthService } from '../../services/auth/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  email!: string;
-  password!: string;
-  submitted = false;
-  errorMessage = '';
+  // email!: string;
+  // password!: string;
+  form: any = {};
   isLoggedin = false;
   isLoginFailed = false;
+  errorMessage = '';
+  submitted = false;
   
-  // form = new FormGroup({  
-  //   email : new FormControl('' , Validators.required),  
-  //   password : new FormControl('' , Validators.required)  
-  // }); 
+  
 
-  constructor(private authService: AuthService, private router: Router) { }  
+  constructor(private authService: AuthService, private router: Router) { }
+  
 
-  ngOnInit() { 
-    // if(this.authService.isLoggedIn())
-    // {
-    //   this.router.
-    // }
-  }  
+  ngOnInit() {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate([this.getLoggedInRole()]);
+    }
+  }
 
 
   onSubmit() {
-    console.log("Try to login " + this.email + " " + this.password);
+    console.log("Try to login " + this.form.email + " " + this.form.password);
     this.submitted = true;
-    this.authService.login(this.email, this.password).subscribe(
+    // if(this.form.email=="alaa" && this.form.password=="123"){
+    //   this.isLoggedin = true;
+    //   //this.router.navigate([this.getLoggedInRole()]);
+    //   this.router.navigate(['/admin']);
+    // }
+    this.authService.login(this.form.email, this.form.password).subscribe(
       data => {
         this.isLoggedin = true
         console.log("After Login " + data.roles);
-        if(data.roles=="ADMIN"){
-          this.router.navigate(['/admin']);
-        }
-        
+        this.router.navigate([this.getLoggedInRole()]);
       },
       error => {
         console.log(error);
-        this.errorMessage = error;
+        this.errorMessage = error.error.message;
         this.isLoggedin = false;
         this.isLoginFailed = true;
       }
     );
+  }
+
+  getLoggedInRole() {
+    const role = sessionStorage.getItem("roles");
+    switch (role) {
+      case "ADMIN": {
+        return '/admin';
+      }
+      case "COMPANY": {
+        return '/company';
+      }
+      case "CUSTOMER": {
+        return '/customer';
+      }
+      default: {
+        return '';
+      }
+    }
   }
 }

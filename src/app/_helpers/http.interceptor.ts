@@ -22,9 +22,9 @@ export class AuthInterceptor implements HttpInterceptor {
                     console.log("logout");
                     this.authService.logout();
                 }
-                // else if(err.status === 403){
-                //     this.authService.logout();
-                // }
+                else if(err.status === 403){
+                     this.authService.logout();
+                }
                 return throwError(err);
             }));
         }

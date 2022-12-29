@@ -15,6 +15,8 @@ import { CouponListComponent } from './components/coupon-list/coupon-list.compon
 import { CouponComponent } from './components/coupon/coupon.component';
 import { AdminstratorComponent } from './components/adminstrator/adminstrator.component';
 import { HeaderComponent } from './components/header/header.component';
+import { CustomersComponent } from './components/customers/customers.component';
+import { NewCustomerComponent } from './components/new-customer/new-customer.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,7 @@ import { HeaderComponent } from './components/header/header.component';
     CouponListComponent,
     CouponComponent,
     AdminstratorComponent, 
-    HeaderComponent
+    HeaderComponent, CustomersComponent, NewCustomerComponent
   ],
   imports: [
     BrowserModule,

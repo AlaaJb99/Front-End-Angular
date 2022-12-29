@@ -5,18 +5,19 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
 
+const headers = new HttpHeaders().set('Content-Type', 'application/json');
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
   private baseUrl = 'http://localhost:5050/auth/';
+  //private loggedUser;
 
   constructor(private http: HttpClient, private router: Router) { }
 
   login(email: string, password: string): Observable<any> {
     console.log('In AuthService -  login');
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http
       .post<any>(this.baseUrl + "login", { email, password }, { headers })
       .pipe(catchError(this.handleError),
@@ -26,7 +27,8 @@ export class AuthService {
           let tokenStr = "Bearer " + userData.token;
           console.log("Token---  " + tokenStr);
           sessionStorage.setItem("token", tokenStr);
-          sessionStorage.setItem("roles", JSON.stringify(userData.roles));
+          sessionStorage.setItem("roles", userData.roles);
+          //sessionStorage.setItem("roles", JSON.stringify(userData.roles));
           return userData;
         }));
   }
@@ -38,6 +40,8 @@ export class AuthService {
 
   isLoggedIn(): boolean {
     return sessionStorage.getItem('token') !== null;
+  //   const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+  // return expiry * 1000 > Date.now();
   }
 
 

@@ -1,51 +1,60 @@
 <div class="container mt-5 pt-5">
-    <div class="card">
-      <div class="row p-5">
-        <div class="col ms-5 mt-5 pt-4">
-          <div>
-            <!-- col1 the login form -->
+  <div class="card">
+    <div class="row p-5">
+      <div class="col ms-5 mt-5 pt-4">
+        <div>
+          <!-- col1 the login form -->
 
-            <h1 class="display-1 mb-5" style="font-family:Poor Richard;">
-              <img class="" src="/assets/img/logo.png" alt="logo"><strong>Login</strong>
-            </h1>
-          </div>
-          <div class="col-10 ms-5 mb-5">
-            <form class="form-group" (ngSubmit)="onSubmit()" style="font-family: Serif; font-size: 20px;">
-              <div class="input-group mb-3">
-                <div class="form-floating">
-                  <input type="email" class="form-control rounded-pill ps-4" id="email"
-                    placeholder="example@gmail.com" name="email" [(ngModel)]="email">
-                  <label class="ps-4" for="emailInput">Email</label>
+          <h1 class="display-1 mb-5" style="font-family:Poor Richard;">
+            <img class="" src="/assets/img/logo.png" alt="logo"><strong>Login</strong>
+          </h1>
+        </div>
+        <div class="col-10 ms-5 mb-5">
+          <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="form-group"
+            style="font-family: Serif; font-size: 20px;">
+            <div class="input-group mb-3">
+              <div class="form-floating">
+                <input type="email" class="form-control rounded-pill ps-4" id="email" placeholder="example@gmail.com"
+                  name="email" [(ngModel)]="form.email" required #email="ngModel">
+                <label class="ps-4" for="emailInput">Email</label>
+                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && email.invalid">Email is required!
                 </div>
-                <span
-                  class="input-group-text border-0 position-absolute top-50 end-0 translate-middle-y sticky-top"><span
-                    class="fa-regular fa-at"></span></span>
               </div>
+              <span class="input-group-text border-0 position-absolute top-50 end-0 translate-middle-y sticky-top"><span
+                  class="fa-regular fa-at"></span></span>
+            </div>
 
-              <div class="input-group mb-3">
-                <div class="form-floating">
-                  <input type="password" class="form-control rounded-pill ps-4" id="password" name="password" [(ngModel)] ="password" placeholder="Password"
-                    >
-                  <!-- <label class="ps-4" for="clientPass">Password</label> -->
-                  <label class="ps-4" for="clientPass">Password
-                  </label>
+            <div class="input-group mb-3">
+              <div class="form-floating">
+                <input type="password" class="form-control rounded-pill ps-4" id="password" placeholder="Password" name="password"
+                   [(ngModel)]="form.password" required #password="ngModel">
+                <!-- <label class="ps-4" for="clientPass">Password</label> -->
+                <label class="ps-4" for="password">Password</label>
+                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                  <div *ngIf="password.errors?.['required']">Password is required</div>
                 </div>
-                <span
-                  class="input-group-text border-0 position-absolute top-50 end-0 translate-middle-y sticky-top"><span
-                    class="fas fa-light fa-lock"></span></span>
               </div>
-              <button class="btn btn-success">Login</button>
-            </form>
-          </div>
-
+              <span class="input-group-text border-0 position-absolute top-50 end-0 translate-middle-y sticky-top"><span
+                  class="fas fa-light fa-lock"></span></span>
+            </div>
+            <div class="form-group text-center">
+              <button class="btn btn-success rounded-pill">
+                Login <i class="bi bi-arrow-right-circle-fill"></i></button>
+            </div>
+            <div class="form-group">
+              <div class="alert alert-danger" role="alert" *ngIf="isLoginFailed">Login failed: {{ errorMessage }}</div>
+            </div>
+          </form>
         </div>
 
-        <div class="col-6 mt-5 ms-5 ps-5">
-          <!-- col2 the illustration -->
+      </div>
 
-          <img src="/assets/img/loginimage.png" alt="coupon">
+      <div class="col-6 mt-5 ms-5 ps-5">
+        <!-- col2 the illustration -->
 
-        </div>
+        <img src="/assets/img/loginimage.png" alt="coupon">
+
       </div>
     </div>
   </div>
+</div>
