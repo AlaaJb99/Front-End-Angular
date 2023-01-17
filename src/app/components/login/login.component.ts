@@ -30,17 +30,11 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
-    console.log("Try to login " + this.form.email + " " + this.form.password);
     this.submitted = true;
-    // if(this.form.email=="alaa" && this.form.password=="123"){
-    //   this.isLoggedin = true;
-    //   //this.router.navigate([this.getLoggedInRole()]);
-    //   this.router.navigate(['/admin']);
-    // }
     this.authService.login(this.form.email, this.form.password).subscribe(
       data => {
         this.isLoggedin = true
-        console.log("After Login " + data.roles);
+        //console.log("After Login " + data.roles);
         this.router.navigate([this.getLoggedInRole()]);
       },
       error => {

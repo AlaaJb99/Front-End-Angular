@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer/customer.service';
@@ -15,9 +16,9 @@ const PAT_EMAIL = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.][a-zA-Z]{2,4}$";
   styleUrls: ['./new-customer.component.css']
 })
 export class NewCustomerComponent implements OnInit {
-
+  href!: string;
   submitted = false;
-  emailExists = false;
+  userExists = false;
   customerForm = new FormGroup({
     id: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(9)]),
     firstName: new FormControl('', [Validators.required, Validators.pattern(PAT_NAME)]),
@@ -26,16 +27,25 @@ export class NewCustomerComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
 
-  constructor(private formBuilder: FormBuilder, private customerService: CustomerService) { }
+  constructor(private formBuilder: FormBuilder, private customerService: CustomerService, private router: Router, private activeRoute: ActivatedRoute) {
+    this.href = this.router.url;
+
+    if (this.href == '/admin/edit-customer') {
+      console.log(this.router.url)
+      var customer: any;
+      customer = JSON.parse(sessionStorage.getItem("customer") + "");
+      this.customerForm.controls.id.setValue(customer.id);
+      this.customerForm.controls.id.disable();
+      this.customerForm.controls.firstName.setValue(customer.firstName);
+      this.customerForm.controls.lastName.setValue(customer.lastName);
+      this.customerForm.controls.email.setValue(customer.email);
+      this.customerForm.controls.password.setValue(customer.password);
+    }
+
+  }
 
   ngOnInit() {
-    // this.customerForm = this.formBuilder.group({
-    //   id :['', ]],
-    //   firstName: [''],
-    //   lastName:[''],
-    //   email:[''], 
-    //   password:['']
-    // })
+
   }
 
   get f() {
@@ -55,14 +65,31 @@ export class NewCustomerComponent implements OnInit {
     customer.email = this.customerForm.controls.email.value
     customer.password = this.customerForm.controls.password.value
     // call the customer service to make a post request
-    this.customerService.addNewCustomer(customer).subscribe(data => {
-      console.log(data + " Added");
-    }, error => {
-      if (error.status == 400) {
-        console.error(error.message);
-        this.emailExists = true;
-      }
-    });
+    if (this.href == '/admin/edit-customer') {
+      this.customerService.editCustomer(customer).subscribe(data => {
+        console.log(data + " Edited");
+        this.userExists = false;
+        sessionStorage.removeItem("customer");
+        this.router.navigate(['/admin/customers']);
+      }, error => {
+        if (error.status == 400) {
+          console.error(error.message);
+          this.userExists = true;
+        }
+      });
+    }
+    else {
+      this.customerService.addNewCustomer(customer).subscribe(data => {
+        console.log(data + " Added");
+        this.userExists = false;
+        this.router.navigate(['/admin/customers']);
+      }, error => {
+        if (error.status == 400) {
+          console.error(error.message);
+          this.userExists = true;
+        }
+      });
+    }
   }
 
   idPress(event: any) {

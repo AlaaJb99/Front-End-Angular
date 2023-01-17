@@ -1,39 +1,47 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { Customer } from 'src/app/models/customer.model';
 import { AuthService } from '../../services/auth/auth.service';
 import { CustomerService } from '../../services/customer/customer.service';
 
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.css']
+  styleUrls: ['./customer.component.css'],
+  providers: [CustomerService]
 })
 export class CustomerComponent implements OnInit {
-  isSignedin = false;
+  href!: string;
+  isLoggedIn = false;
+  welcom = "";
+  cu: Customer | undefined;
 
-	signedinUser: string = '';
-
-	greeting: any[] = [];
-
-  constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient, private authService: AuthService, private customerService: CustomerService) {}
+  constructor(private authService: AuthService, private customerService: CustomerService, private router: Router, private route: ActivatedRoute) {
+    this.href = this.router.url;
+   }
 
   ngOnInit(): void {
-    this.isSignedin = this.authService.isLoggedIn();
-    this.signedinUser = this.authService.getSignedinUser();
+    console.log("in customer home");
+    if (!this.authService.isLoggedIn()) {
+      this.authService.logout();
+    } else {
+      this.isLoggedIn = this.authService.isLoggedIn();
+      this.customerService.getLoggedInCustomer().subscribe(data => {
+        console.log("get logged in customer");
+        this.cu = data;
+        this.welcom = sessionStorage.getItem("firstName")+" "+sessionStorage.getItem("lastName");
+        if (this.href == '/customer'){
+          this.router.navigate(['/customer/coupons']);
+        }
+      });
+      this.welcom = sessionStorage.getItem("firstName")+" "+sessionStorage.getItem("lastName");
+    }
 
-    if(!this.authService.isLoggedIn()) {
-			this.router.navigateByUrl('login');
-		}
-    
-    if(this.isSignedin) {
-      console.log("HII");
-			// this.greetingService.getByUserRole().subscribe((result: string) => this.greeting.push(result), () => console.log('/user - You are not authorize'));
-			// this.greetingService.getByAdminRole().subscribe((result: string) => this.greeting.push(result), () => console.log('/admin - You are not authorized'));
-			// this.greetingService.getByUserOrAdminRole().subscribe((result: string) => this.greeting.push(result), () => console.log('/userOrAdmin - You are not authorized'));
-			// this.greetingService.getByAnonymousRole().subscribe((result: string) => this.greeting.push(result), () => console.log('/anonymous - You are not authorized'));
-		}
   }
 
-
+  logOut() {
+    this.authService.logout();
+  }
 }

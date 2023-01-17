@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="min-width: 250px; background: #3c4680;">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a class="" href="/company">
+                    <img class="d-inline-block align-text-top" width="200" src="assets/img/coupona.png"
+                        alt="coupon logo">
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="/company" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house white"></i> <span class="ms-1 d-none d-sm-inline white">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/company/addcoupon" class="nav-link align-middle px-0">
+                            <i class="bi bi-plus-square white"></i> <span class="ms-1 d-none d-sm-inline white">Add New
+                                Coupon</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/company/coupons" class="nav-link align-middle px-0">
+                            <i class="bi bi-card-list white"></i> <span
+                                class="ms-1 d-none d-sm-inline white">Coupons</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/company/profile" class="nav-link align-middle px-0">
+                            <i class="bi bi-person-square white"></i><span
+                                class="ms-1 d-none d-sm-inline white">Profile</span>
+                        </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="">
+                    <button class="btn white" (click)="logOut()"><span><i class="bi bi-box-arrow-left"></i></span>
+                        LogOut</button>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+
+            <!-- <h1 class="w-auto align-text-center p-4 sticky-top" style="background-color: #3c4680; color: #dff2ff; font-family: Poor Richard; z-index: -30;"> Welcome
+                {{welcome}}</h1> -->
+            <!-- <h1 class="align-text-center"> Welcome </h1> -->
+            <div *ngIf="isLoggedIn">
+                <h1 class="p-4 fw-bold" style="color: #3c4680; font-family: Poor Richard;"> Welcome
+                    {{welcome}} </h1>
+
+                <div *ngIf="home">
+                    <h4 class="ps-4 fw-bold" style="color: #3c4680; font-family: Poor Richard;"><span><i
+                                class="bi bi-arrow-left-short"></i></span> You can Add, Update or Delete coupons by
+                        selecting
+                        the options in the left side</h4>
+                    <div class="text-center"><img src="assets/img/company.png" alt=""></div>
+                </div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

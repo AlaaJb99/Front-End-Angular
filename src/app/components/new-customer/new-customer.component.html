@@ -39,13 +39,11 @@
                 <div class="form-group input-group mb-3">
                     <span class="input-group-text"> <i class="bi bi-envelope-at"></i> </span>
                     <input class="form-control" placeholder="Email address" type="email" formControlName="email"
-                        required [ngClass]="{ 'is-invalid': (submitted && f.email.errors || emailExists) }">
-                    <div class="invalid-feedback" *ngIf="f.email.errors">
+                        required [ngClass]="{ 'is-invalid': (submitted && f.email.errors) }">
+                    <div class="invalid-feedback" *ngIf="f.email.errors?.['required']">
                         Email is required
                     </div>
-                    <div class="invalid-feedback" *ngIf="emailExists">
-                        There a customer with this email
-                    </div>
+
 
                 </div> <!-- form-group// -->
 
@@ -58,16 +56,16 @@
                         <div *ngIf="f.password.errors?.['required']">Password is required</div>
                         <div *ngIf="f.password.errors?.['minlength']">Password must contain 8 characters</div>
                     </div>
-
-
                 </div> <!-- form-group// -->
-
+                <div class="alert alert-danger" *ngIf="userExists">
+                    There a customer with this id or email
+                </div>
                 <div class="form-group mb-3 text-center">
                     <button type="submit" class="btn btn-primary btn-block">
                         <i class="bi bi-check"></i>
                         Submit</button>
                 </div> <!-- form-group// -->
-                
+
             </form>
         </article>
     </div>

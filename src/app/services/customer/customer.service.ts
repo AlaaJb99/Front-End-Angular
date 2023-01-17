@@ -1,8 +1,9 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { Customer } from 'src/app/models/customer.model';
+import { AuthService } from '../auth/auth.service';
 
 const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
@@ -11,7 +12,10 @@ const headers = new HttpHeaders().set('Content-Type', 'application/json');
 })
 export class CustomerService {
   private baseUrl = 'http://localhost:5050/api/customers';
-  constructor(private http: HttpClient, private router: Router) { }
+  logedInCustomer?: Customer;
+
+
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) { }
 
   getAllCustomers(): Observable<any> {
     console.log("Get all Customers");
@@ -29,16 +33,26 @@ export class CustomerService {
   }
 
   addNewCustomer(customer: Customer) {
-    let body = JSON.stringify(customer);
-    // var item = {
-    //   "id": customer["id"],
-    //   "firstName": customer["firstName"],
-    //   "lastName": customer["lastName"],
-    //   "email": customer["email"],
-    //   "password":customer["password"]
-    //  }
-    console.log(body)
     return this.http
-      .post(this.baseUrl + "/admin", customer,{headers});
+      .post(this.baseUrl + "/admin", customer, { headers });
+  }
+
+  editCustomer(customer: Customer) {
+    return this.http.put(this.baseUrl + "/admin", customer, { headers });
+  }
+
+  getLoggedInCustomer() {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("email", sessionStorage.getItem("email")+"");
+    return this.http.get<any>(this.baseUrl + "/customer", { params: queryParams }).
+      pipe(map((data: Customer) => {
+        sessionStorage.setItem("customer", JSON.stringify(data));
+        sessionStorage.setItem("id", data.id?.toString() + "");
+        sessionStorage.setItem("firstName", data.firstName + "");
+        sessionStorage.setItem("lastName", data.lastName + "");
+        //this.logedInCustomer = data;
+        return data;
+      })
+      );
   }
 }

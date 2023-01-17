@@ -1,9 +1,24 @@
-<p>coupon works!</p>
-<div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title"></h5>
-        <p class="card-text"></p>
-        <a href="/customer/coupon" class="btn btn-primary">View</a>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="/assets/img/discount1.png" class="card-img-top" alt="discount">
+        </div>
+        <div class="col-md-6">
+            <div class="p-4">
+                <div class="mt-4 mb-3"> <span class="text-uppercase text-muted brand">{{companyName}}</span>
+                    <h5 class="text-uppercase">{{couponTitle}}</h5>
+                </div>
+                <p class="about">{{couponDetails}}</p>
+                <p><strong>Start Date:</strong>  {{couponStartDate}}</p>
+                <p><strong>End Date:</strong> {{couponEndDate}}</p>
+                <p><strong>Category:</strong> {{category}}</p>
+                <p><strong>Price:</strong> {{price}} $</p>
+                <div class="mt-4 align-items-center"> 
+                    <button class="btn btn-primary text-uppercase mr-2 px-4" (click)="purchaseCoupon()" *ngIf="!purchased">Purchase</button>
+                </div>
+                <div></div>
+            </div>
+        </div>
+
     </div>
 </div>

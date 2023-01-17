@@ -3,32 +3,29 @@
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="min-width: 250px; background: #3c4680;">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <a class="" href="/admin">
-                    <img class="d-inline-block align-text-top" width="200" src="assets/img/cplogo.png"
+                    <img class="d-inline-block align-text-top" width="200" src="assets/img/coupona.png"
                         alt="coupon logo">
                 </a>
-                <!-- <a href="/admin"
-                    class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Coupona</span>
-                </a> -->
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                     <li class="nav-item">
                         <a href="/admin" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline white">Home</span>
+                            <i class="fs-4 bi-house white"></i> <span class="ms-1 d-none d-sm-inline white">Home</span>
                         </a>
                     </li>
                     <li>
                         <a href="#submenu1" data-bs-toggle="collapse" aria-expanded="false"
                             class="nav-link px-0 align-middle dropdown-toggle collapsed white">
-                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline white">Manage
+                            <i class="bi bi-kanban"></i><span class="ms-1 d-none d-sm-inline white">Manage
                                 Companies</span>
                         </a>
                         <ul class="collapse nav flex-column ms-1 px-3" id="submenu1" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="/admin/companies" class="nav-link white"> <span
+                                <a routerLink="/admin/companies" class="nav-link white"> <span
                                         class="d-none d-sm-inline">Companies</span> </a>
                             </li>
                             <li>
-                                <a href="/admin/newcompany" class="nav-link white"> <span class="d-none d-sm-inline">New
+                                <a routerLink="/admin/newcompany" class="nav-link white"> <span
+                                        class="d-none d-sm-inline">New
                                         Company</span> </a>
                             </li>
                         </ul>
@@ -36,15 +33,15 @@
                     <li>
                         <a href="#submenu2" data-bs-toggle="collapse"
                             class="nav-link px-0 align-middle dropdown-toggle white">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Manage
+                            <i class="bi bi-kanban"></i> <span class="ms-1 d-none d-sm-inline">Manage
                                 Customers</span></a>
                         <ul class="collapse nav flex-column ms-1 px-2" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="/admin/customers" class="nav-link white"> <span
+                                <a routerLink="/admin/customers" class="nav-link white"> <span
                                         class="d-none d-sm-inline">Customers</span></a>
                             </li>
                             <li>
-                                <a href="/admin/newcustomer" class="nav-link white"> <span
+                                <a routerLink="/admin/newcustomer" class="nav-link white"> <span
                                         class="d-none d-sm-inline">New
                                         Customer</span></a>
                             </li>
@@ -52,11 +49,20 @@
                     </li>
                 </ul>
                 <hr>
+                <div class="">
+                    <button class="btn white" (click)="logOut()"><span><i class="bi bi-box-arrow-left"></i></span>
+                        LogOut</button>
+                </div>
             </div>
         </div>
-        <div class="col py-3">
-            <h1 class="align-text-center"> Welcome Adminstrator </h1>
+        <div class="col">
             <div *ngIf="isLoggedIn">
+               
+               <h1 class="p-4 fw-bold" style="color: #3c4680; font-family: Poor Richard;"> Welcome
+                    Adminstrator </h1>
+                <div *ngIf="home" class="text-center">
+                    <img src="assets/img/management.png" alt="">
+                </div>
                 <router-outlet></router-outlet>
             </div>
         </div>

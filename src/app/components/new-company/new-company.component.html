@@ -1,0 +1,55 @@
+<div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">Create Company Account</h4>
+        <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+            <div class="form-group input-group mb-3" *ngIf="isEditForm">
+                <span class="input-group-text"> <i class="bi bi-person-vcard"></i></span>
+                <input name="" class="form-control" placeholder="ID Number" type="text" formControlName="id" required>
+            </div> <!-- form-group// -->
+
+            <div class="form-group input-group mb-3">
+                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                <input type="text" aria-label="First name" class="form-control" placeholder="Company Name"
+                    formControlName="name" required (keypress)="namePress($event)"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                
+
+                <div class="invalid-feedback" role="alert" *ngIf="f.name.errors">
+                    <div *ngIf="submitted && f.name.errors?.['required']">
+                        Name is required </div>
+                    <div *ngIf="submitted && f.name.errors?.['pattern']">Name contains just letters </div>
+                </div>
+
+            </div><!-- form-group// -->
+
+            <div class="form-group input-group mb-3">
+                <span class="input-group-text"> <i class="bi bi-envelope-at"></i> </span>
+                <input class="form-control" placeholder="Email address" type="email" formControlName="email" required
+                    [ngClass]="{ 'is-invalid': (submitted && f.email.errors) }">
+                <div class="invalid-feedback" *ngIf="f.email.errors?.['required']">
+                    Email is required
+                </div>
+            </div> <!-- form-group// -->
+
+            <div class="form-group input-group mb-3">
+                <span class="input-group-text"> <i class="bi bi-lock"></i> </span>
+                <input class="form-control" placeholder="Password" type="password" formControlName="password" required
+                    [ngClass]="{ 'is-invalid': (submitted && f.password.errors) }">
+
+                <div class="invalid-feedback" *ngIf="submitted && f.password.errors">
+                    <div *ngIf="f.password.errors?.['required']">Password is required</div>
+                    <div *ngIf="f.password.errors?.['minlength']">Password must contain 8 characters</div>
+                </div>
+            </div> <!-- form-group// -->
+            <div class="alert alert-danger" *ngIf="userExists">
+                There is a company with this name or email
+            </div>
+            <div class="form-group mb-3 text-center">
+                <button type="submit" class="btn btn-primary btn-block">
+                    <i class="bi bi-check"></i>
+                    Submit</button>
+            </div> <!-- form-group// -->
+
+        </form>
+    </article>
+</div>

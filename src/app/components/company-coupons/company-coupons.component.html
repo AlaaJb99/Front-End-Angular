@@ -1,0 +1,35 @@
+<p>company-coupons works!</p>
+
+<table class="table table-striped table-bordered table-sm row-border hover" id="datatableexample">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Amount</th>
+        <th>price</th>
+        <th>Edit or Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let coupon of coupons">
+        <td>{{coupon.id}}</td>
+        <td>{{coupon.title}}</td>
+        <td>{{coupon.description}}</td>
+        <td>{{coupon.category}}</td>
+        <td>{{coupon.startDate}}</td>
+        <td>{{coupon.endDate}}</td>
+        <td>{{coupon.amount}}</td>
+        <td>{{coupon.price}}</td>
+        <td>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="editCoupon(coupon)">Edit</button>
+            <button type="button" class="btn btn-danger" (click)="deleteCoupon(coupon)">Delete</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>

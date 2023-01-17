@@ -12,7 +12,8 @@ const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 export class AuthService {
   private baseUrl = 'http://localhost:5050/auth/';
-  //private loggedUser;
+  loggedUserEmail: any;
+  loggedUserPassword: any;
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -24,11 +25,14 @@ export class AuthService {
         map(userData => {
           console.log(userData.roles);
           sessionStorage.setItem("email", email);
+          sessionStorage.setItem("password", password);
           let tokenStr = "Bearer " + userData.token;
           console.log("Token---  " + tokenStr);
           sessionStorage.setItem("token", tokenStr);
           sessionStorage.setItem("roles", userData.roles);
           //sessionStorage.setItem("roles", JSON.stringify(userData.roles));
+          this.loggedUserEmail=email;
+          this.loggedUserPassword=password;
           return userData;
         }));
   }
@@ -38,6 +42,10 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  getEmail(){
+    return sessionStorage.getItem("email")+"";
+  }
+  
   isLoggedIn(): boolean {
     return sessionStorage.getItem('token') !== null;
   //   const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;

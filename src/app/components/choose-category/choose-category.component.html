@@ -1,0 +1,18 @@
+<p>Welcome in Our Web application:
+    <br>You still didn't purchase any Coupon<br>
+    choose a categories from he below list to see a coupons for wht yoy prefere or you can search form
+</p>
+<div class="container">
+    <form [formGroup]="categoriesForm" (ngSubmit)="onSubmit()" style="display: inline-block">
+        <ul class="list-group" style="display: inline-block" *ngFor="let category of allCategories">
+            <li class="list-group-item">
+                <input class="form-check-input me-1" [value]="category" type="checkbox" value="" id="checkbox" formArrayName="selectedCategories" (change)="onCheckboxChange($event)">{{category}}
+            </li>
+        </ul>
+        <div class="alert alert-danger" *ngIf="noSelected">
+            You must check at least one Category
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Submit <i class="bi bi-check"></i></button>
+    </form>
+
+</div>
