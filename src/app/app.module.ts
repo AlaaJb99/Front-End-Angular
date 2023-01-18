@@ -14,7 +14,6 @@ import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { CouponListComponent } from './components/coupon-list/coupon-list.component';
 import { CouponComponent } from './components/coupon/coupon.component';
 import { AdminstratorComponent } from './components/adminstrator/adminstrator.component';
-import { HeaderComponent } from './components/header/header.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { NewCustomerComponent } from './components/new-customer/new-customer.component';
 import { CompaniesComponent } from './components/companies/companies.component';
@@ -35,8 +34,7 @@ import { CompanyProfileComponent } from './components/company-profile/company-pr
     SideBarComponent,
     CouponListComponent,
     CouponComponent,
-    AdminstratorComponent, 
-    HeaderComponent, CustomersComponent, NewCustomerComponent, CompaniesComponent, NewCompanyComponent, CompanyComponent, NewCouponComponent, CompanyCouponsComponent, ChooseCategoryComponent, CustomerProfileComponent, CompanyProfileComponent
+    AdminstratorComponent, CustomersComponent, NewCustomerComponent, CompaniesComponent, NewCompanyComponent, CompanyComponent, NewCouponComponent, CompanyCouponsComponent, ChooseCategoryComponent, CustomerProfileComponent, CompanyProfileComponent
   ],
   imports: [
     BrowserModule,
