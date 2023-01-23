@@ -25,6 +25,8 @@ export class CouponComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
     if (this.href == '/customer/details') {
       this.purchased = true;
     } else {
@@ -40,13 +42,16 @@ export class CouponComponent implements OnInit {
       this.couponStartDate = this.coupon.startDate;
       this.couponEndDate = this.coupon.endDate;
       this.category = this.coupon.category;
-      if (!this.purchased) {
-        this.price = this.coupon.price;
-      }
+      this.price = this.coupon.price + "$";
       this.companyService.getCompanyNameWithId(this.coupon.companyID).subscribe(data => {
         console.log(data);
         this.companyName = data + "";
       });
+      this.couponService.isPurchased(this.coupon.id).subscribe(data => {
+        this.purchased = false;
+      }, error => {
+          this.purchased = true;
+      })
     });
 
 

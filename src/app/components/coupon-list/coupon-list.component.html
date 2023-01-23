@@ -2,7 +2,7 @@
     <h2 class="fw-bold ps-4" style="color: #3c4680; font-family: Poor Richard;"> Here are your Purchased Coupons</h2>
     <h4 class="ps-4" style="color: #3c4680; font-family: Poor Richard;">You can View it's details</h4>
 </div>
-<div  *ngIf="!purchasedPage">
+<div *ngIf="!purchasedPage">
     <h4 class="ps-4 fw-bold" style="color: #3c4680; font-family: Poor Richard;">You can search for
         what you want or choose a categories from the left side or get one of the recommended coupons</h4>
 </div>
@@ -33,17 +33,17 @@
         <div class="card-body">
             <h5 class="card-title">{{ coupon.title }}</h5>
             <p class="card-text">{{ coupon.description }}</p>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-primary" (click)="viewCoupon(coupon)">View</button>
-                <button type="button" class="btn btn-success" (click)="purchaseCoupon(coupon)"
-                    *ngIf="!purchasedPage">Purchase</button>
-                <!-- <button type="button" class="btn btn-danger" (click)="deletePurchased(coupon)"
-                        *ngIf="purchasedPage">Delete</button> -->
-            </div>
-            <div class="alert alert-warning" *ngIf="couponPurchased"><span><i
-                        class="bi bi-exclamation-triangle"></i></span>
-                You Already purchased This coupon
-            </div>
+
+        </div>
+
+        <div class="card-footer bg-transparent btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-primary" (click)="viewCoupon(coupon)">View</button>
+            <button type="button" class="btn btn-success" (click)="purchaseCoupon(coupon)"
+                *ngIf="!purchasedPage">Purchase</button>
+        </div>
+
+        <div class="alert alert-warning" *ngIf="couponPurchased"><span><i class="bi bi-exclamation-triangle"></i></span>
+            You Already purchased This coupon
         </div>
     </div>
 </div>

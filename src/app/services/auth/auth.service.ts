@@ -38,8 +38,9 @@ export class AuthService {
   }
 
   logout() {
-    sessionStorage.clear()
-   // console.clear();
+    sessionStorage.clear();
+    localStorage.clear();
+    //console.clear();
     this.router.navigate(['/login']);
   }
 

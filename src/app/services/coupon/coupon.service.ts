@@ -104,6 +104,14 @@ export class CouponService {
     return this.http.post(this.baseUrl + "/customer/purchase", purchaseCpoupon, { headers });
   }
 
+  isPurchased(couponId: any){
+    let purchaseCpoupon = {
+      customerId: Number(sessionStorage.getItem("id")),
+      couponId: couponId
+    }
+    return this.http.post(this.baseUrl + "/customer/ispurchase", purchaseCpoupon, { headers });
+  }
+
   getPurchasedCoupons() {
     let queryParams = new HttpParams();
     let id = Number(sessionStorage.getItem("id"));
@@ -112,17 +120,4 @@ export class CouponService {
       return data.coupon;
     }));
   }
-
-  // deletePurchasedCoupon(couponId: any) {
-  //   const body = {
-  //     customerId: Number(sessionStorage.getItem("id")),
-  //     couponId: couponId
-  //   }
-  //   const options = {
-  //     headers: headers,
-  //     body: body
-  //   };
-  //   console.log("Delete this purchased coupon");
-  //   return this.http.delete<any>(this.baseUrl + "/customer/delete", options).subscribe();
-  // }
 }

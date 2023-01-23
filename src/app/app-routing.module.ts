@@ -18,8 +18,8 @@ import { NewCustomerComponent } from './components/new-customer/new-customer.com
 import { Customer } from './models/customer.model';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'customer', component: CustomerComponent },
   {
     path: 'admin',

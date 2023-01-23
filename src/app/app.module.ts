@@ -10,7 +10,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { AuthInterceptor } from './_helpers/http.interceptor';
-import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { CouponListComponent } from './components/coupon-list/coupon-list.component';
 import { CouponComponent } from './components/coupon/coupon.component';
 import { AdminstratorComponent } from './components/adminstrator/adminstrator.component';
@@ -31,7 +30,6 @@ import { CompanyProfileComponent } from './components/company-profile/company-pr
     AppComponent,
     LoginComponent,
     CustomerComponent,
-    SideBarComponent,
     CouponListComponent,
     CouponComponent,
     AdminstratorComponent, CustomersComponent, NewCustomerComponent, CompaniesComponent, NewCompanyComponent, CompanyComponent, NewCouponComponent, CompanyCouponsComponent, ChooseCategoryComponent, CustomerProfileComponent, CompanyProfileComponent
