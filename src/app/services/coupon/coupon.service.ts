@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { Coupon } from '../../models/coupon.model';
 import { Router } from '@angular/router';
 
@@ -11,12 +11,23 @@ const headers = new HttpHeaders().set('Content-Type', 'application/json');
 })
 export class CouponService {
   private baseUrl = 'http://localhost:5050/api/coupons';
-  categories = ["Food", "Furniture", "Clothing", "Electricity", "Electronics", "Cosmetics", "Resturant", "Education"];
+  categories = ["Food", "Furniture", "Clothing", "Electricity", "Electronics", "Cosmetics", "Resturant", "Education", "Health"];
   favoriteCategories!: string[];
   companyCoupons!: Coupon[];
   customerRecommendedCoupons!: Coupon[];
+  responseSubject!: BehaviorSubject<any>;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { 
+    this.responseSubject = new BehaviorSubject(null);
+  }
+
+  get response$(){
+    return this.responseSubject.asObservable();
+  }
+
+  setResponse(response: any): void {
+      this.responseSubject.next(response);
+  }
 
   getAll(): Observable<Coupon[]> {
     return this.http.get<Coupon[]>(this.baseUrl);

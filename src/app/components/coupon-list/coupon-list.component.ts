@@ -17,9 +17,18 @@ export class CouponListComponent implements OnInit {
   couponPurchased = false;
   searchInput!: any;// = new FormControl('', Validators.required);
   empty = false;
+  chooseCategory = false;
 
   constructor(private couponService: CouponService, private customerService: CustomerService, private router: Router) {
     this.href = this.router.url;
+    couponService.response$.subscribe(data => {
+      if (this.href == '/customer/coupons') {
+        this.coupons = data;
+      }
+    });
+    if (sessionStorage.getItem("choosedcategories") != null){
+      sessionStorage.removeItem("choosedcategories");
+    }
   }
 
   ngOnInit() {
@@ -31,8 +40,8 @@ export class CouponListComponent implements OnInit {
           this.coupons = data;
         }, error => {
           if (error.status == 400) {
+            this.chooseCategory = true;
             console.error(error.message);
-            this.router.navigate(['/customer/chooseCategory']);
           }
         });
       }
@@ -64,14 +73,6 @@ export class CouponListComponent implements OnInit {
     });
   }
 
-
-  // deletePurchased(coupon: Coupon) {
-  //   this.coupons.forEach((cus, index) => {
-  //     if (cus == coupon) this.coupons.splice(index, 1);
-  //   });
-  //   this.couponService.deletePurchasedCoupon(coupon.id);
-  // }
-
   purchaseCoupon(coupon: Coupon) {
     this.couponService.purchaseCoupon(coupon.id).subscribe(data => {
       this.couponPurchased = false;
@@ -86,25 +87,11 @@ export class CouponListComponent implements OnInit {
 
   viewCoupon(coupon: Coupon) {
     sessionStorage.setItem("couponId", coupon.id?.toString() + "");
-    // const navigationExtras: NavigationExtras = {
-    //   state: {
-    //     id: coupon.id,
-    //     companyID: coupon.companyID,
-    //     title: coupon.title,
-    //     description: coupon.description,
-    //     category: coupon.category,
-    //     startDate: coupon.startDate,
-    //     endDate: coupon.endDate,
-    //     amount: coupon.amount,
-    //     price: coupon.price
-    //   }
-    // }
     if (this.href == '/customer/coupons') {
-      this.router.navigate(['/customer/coupon']);//, navigationExtras);
+      this.router.navigate(['/customer/coupon']);
     } else {
-      this.router.navigate(['/customer/details']);//, navigationExtras);
+      this.router.navigate(['/customer/details']);
     }
-    //this.router.navigate(['/customer/coupon']);
   }
 
 

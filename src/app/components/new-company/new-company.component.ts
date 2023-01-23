@@ -19,7 +19,7 @@ export class NewCompanyComponent {
   userExists = false;
   companyForm = new FormGroup({
     id: new FormControl(''),
-    name: new FormControl('', [Validators.required, Validators.pattern(PAT_NAME)]),
+    name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });

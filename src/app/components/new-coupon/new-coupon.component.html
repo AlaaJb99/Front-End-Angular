@@ -1,94 +1,97 @@
-<div class="card bg-light">
-    <article class="card-body mx-auto" style="max-width: 400px;">
-        <h4 class="card-title mt-3 text-center">{{form}}</h4>
-        <form [formGroup]="couponForm" (ngSubmit)="onSubmit()">
-            <div class="form-group input-group mb-3" *ngIf="isEditForm">
-                <span class="input-group-text"> <i class="bi bi-card-list white"></i></span>
-                <input name="" class="form-control" placeholder="" type="number" formControlName="id" required>
-            </div> <!-- form-group// -->
+<div class="d-flex justify-content-center">
+    <div class="card bg-white ps-5 pe-5 pt-2 pb-2">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+            <h4 class="card-title mt-3 text-center">{{form}}</h4>
+            <form [formGroup]="couponForm" (ngSubmit)="onSubmit()">
+                <div class="form-group input-group mb-3" *ngIf="isEditForm">
+                    <span class="input-group-text"> <i class="bi bi-card-list white"></i></span>
+                    <input name="" class="form-control" placeholder="" type="number" formControlName="id" required>
+                </div> <!-- form-group// -->
 
-            <div class="form-group input-group mb-3">
-                <span class="input-group-text">Title</span>
-                <input type="text" aria-label="Title" class="form-control" placeholder="Coupon Title"
-                    formControlName="title" required [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                <div class="form-group input-group mb-3">
+                    <span class="input-group-text">Title</span>
+                    <input type="text" aria-label="Title" class="form-control" placeholder="Coupon Title"
+                        formControlName="title" required [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
 
-                <div class="invalid-feedback" role="alert" *ngIf="f.title.errors">
-                    <div *ngIf="submitted && f.title.errors?.['required']">
-                        Title is required </div>
+                    <div class="invalid-feedback" role="alert" *ngIf="f.title.errors">
+                        <div *ngIf="submitted && f.title.errors?.['required']">
+                            Title is required </div>
 
-                </div>
-            </div><!-- form-group// -->
+                    </div>
+                </div><!-- form-group// -->
 
-            <div class="form-group input-group mb-3">
-                <textarea type="text" aria-label="Description" class="form-control" placeholder="Coupon Description"
-                    formControlName="description" required
-                    [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                <div class="form-group input-group mb-3">
+                    <textarea type="text" aria-label="Description" class="form-control" placeholder="Coupon Description"
+                        formControlName="description" required
+                        [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
 
-                <div class="invalid-feedback" role="alert" *ngIf="f.description.errors">
-                    <div *ngIf="submitted && f.description.errors?.['required']">
-                        Description is required </div>
-                </div>
-            </div><!-- form-group// -->
+                    <div class="invalid-feedback" role="alert" *ngIf="f.description.errors">
+                        <div *ngIf="submitted && f.description.errors?.['required']">
+                            Description is required </div>
+                    </div>
+                </div><!-- form-group// -->
 
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="categories">Categories</label>
-                <select formControlName="category" class="form-control" id="categories">
-                    <option *ngIf="!isEditForm">Select Category</option>
-                    <option *ngIf="isEditForm">{{category}}</option>
-                    <option *ngFor="let c of categories">{{c}}</option>
-                </select>
-                <div class="invalid-feedback" role="alert" *ngIf="f.category.errors">
-                    <div *ngIf="submitted && f.category.errors?.['required']">
-                        Category is required </div>
-                </div>
-            </div>
-
-            <div class="form-group input-group mb-3">
-                <span class="input-group-text"> <i class="bi bi-calendar4-week"></i></span>
-                <input class="form-control" placeholder="Start Date" type="date" formControlName="startDate" required
-                    [ngClass]="{ 'is-invalid': (submitted && f.startDate.errors) }">
-                <input class="form-control" placeholder=" End Date" type="date" formControlName="endDate" required
-                    [ngClass]="{ 'is-invalid': (submitted && f.endDate.errors) }">
-
-                <div class="invalid-feedback" *ngIf="submitted && f.startDate.errors">
-                    <div *ngIf="f.startDate.errors?.['required']">Start Date is required</div>
+                <div class="input-group mb-3">
+                    <label class="input-group-text" for="categories">Categories</label>
+                    <select formControlName="category" class="form-control" id="categories">
+                        <option *ngIf="!isEditForm">Select Category</option>
+                        <option *ngIf="isEditForm">{{category}}</option>
+                        <option *ngFor="let c of categories">{{c}}</option>
+                    </select>
+                    <div class="invalid-feedback" role="alert" *ngIf="f.category.errors">
+                        <div *ngIf="submitted && f.category.errors?.['required']">
+                            Category is required </div>
+                    </div>
                 </div>
 
-                <div class="invalid-feedback" *ngIf="submitted && f.endDate.errors">
-                    <div *ngIf="f.endDate.errors?.['required']">End Date is required</div>
+                <div class="form-group input-group mb-3">
+                    <span class="input-group-text"> <i class="bi bi-calendar4-week"></i></span>
+                    <input class="form-control" placeholder="Start Date" type="date" formControlName="startDate"
+                        required [ngClass]="{ 'is-invalid': (submitted && f.startDate.errors) }">
+                    <input class="form-control" placeholder=" End Date" type="date" formControlName="endDate" required
+                        [ngClass]="{ 'is-invalid': (submitted && f.endDate.errors) }">
+
+                    <div class="invalid-feedback" *ngIf="submitted && f.startDate.errors">
+                        <div *ngIf="f.startDate.errors?.['required']">Start Date is required</div>
+                    </div>
+
+                    <div class="invalid-feedback" *ngIf="submitted && f.endDate.errors">
+                        <div *ngIf="f.endDate.errors?.['required']">End Date is required</div>
+                    </div>
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group mb-3">
+                    <span class="input-group-text">Amount</span>
+                    <input type="number" aria-label="Title" class="form-control" placeholder="example: 100, 500"
+                        formControlName="amount" required min="1"
+                        [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
+
+                    <div class="invalid-feedback" role="alert" *ngIf="f.amount.errors">
+                        <div *ngIf="submitted && f.amount.errors?.['required']">
+                            Amount is required </div>
+                    </div>
+                </div><!-- form-group// -->
+
+                <div class="form-group input-group mb-3">
+                    <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
+                    <input type="number" aria-label="Price" class="form-control" placeholder="Price"
+                        formControlName="price" required min="1"
+                        [ngClass]="{ 'is-invalid': submitted && f.price.errors }">
+
+                    <div class="invalid-feedback" role="alert" *ngIf="f.amount.errors">
+                        <div *ngIf="submitted && f.price.errors?.['required']">
+                            Price is required </div>
+                    </div>
+                </div><!-- form-group// -->
+                <div class="alert alert-danger" *ngIf="couponExists">
+                    There is a coupon with this title
                 </div>
-            </div> <!-- form-group// -->
 
-            <div class="form-group input-group mb-3">
-                <span class="input-group-text">Amount</span>
-                <input type="number" aria-label="Title" class="form-control" placeholder="example: 100, 500"
-                    formControlName="amount" required min="1"
-                    [ngClass]="{ 'is-invalid': submitted && f.amount.errors }">
-
-                <div class="invalid-feedback" role="alert" *ngIf="f.amount.errors">
-                    <div *ngIf="submitted && f.amount.errors?.['required']">
-                        Amount is required </div>
-                </div>
-            </div><!-- form-group// -->
-
-            <div class="form-group input-group mb-3">
-                <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
-                <input type="number" aria-label="Price" class="form-control" placeholder="Price" formControlName="price"
-                    required min="1" [ngClass]="{ 'is-invalid': submitted && f.price.errors }">
-
-                <div class="invalid-feedback" role="alert" *ngIf="f.amount.errors">
-                    <div *ngIf="submitted && f.price.errors?.['required']">
-                        Price is required </div>
-                </div>
-            </div><!-- form-group// -->
-            <div class="alert alert-danger" *ngIf="couponExists">
-                There is a coupon with this title
-            </div>
-
-            <div class="form-group mb-3 text-center">
-                <button type="submit" class="btn btn-primary btn-block">
-                    <i class="bi bi-check"></i>Submit</button>
-            </div> <!-- form-group// -->
-        </form>
-    </article>
+                <div class="form-group mb-3 text-center">
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="bi bi-check"></i>Submit</button>
+                </div> <!-- form-group// -->
+            </form>
+        </article>
+    </div>
 </div>

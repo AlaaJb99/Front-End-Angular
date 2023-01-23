@@ -2,7 +2,7 @@
     <div class="row flex-nowrap">
         <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0" style="min-width: 250px; background: #3c4680;">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a class="" href="/customer">
+                <a class="" routerLink="/customer/coupons">
                     <img class="d-inline-block align-text-top" width="200" src="assets/img/coupona.png"
                         alt="coupon logo">
                 </a>
@@ -14,24 +14,43 @@
                     </li>
                     <li>
                         <a routerLink="/customer/purchased" class="nav-link align-middle px-0">
-                            <i class="bi bi-card-list white"></i> <span class="ms-1 d-none d-sm-inline white">Purchased Coupons</span>
+                            <i class="bi bi-card-list white"></i> <span class="ms-1 d-none d-sm-inline white">Purchased
+                                Coupons</span>
                         </a>
                     </li>
                     <li>
                         <a routerLink="/customer/profile" class="nav-link align-middle px-0">
-                            <i class="bi bi-person-lines-fill white"></i><span class="ms-1 d-none d-sm-inline white">Profile</span>
+                            <i class="bi bi-person-lines-fill white"></i><span
+                                class="ms-1 d-none d-sm-inline white">Profile</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="#menu1" data-bs-toggle="collapse" data-target="#menu1"
+                            class="nav-link px-0 align-middle dropdown-toggle white">
+                            <i class="bi bi-kanban"></i><span class="ms-1 d-none d-sm-inline white">categories</span>
+                        </a>
+                        <ul class="collapse flex-column ms-1 px-3" id="menu1" data-bs-parent="#menu">
+                            <form [formGroup]="categoriesForm">
+                                <div class="category-filter filter-wrapper" *ngFor="let category of categories">
+                                    <input type="checkbox" [value]="category" class="form-check-input m-1" value=""
+                                        (change)="onInputChange($event)" formArrayName="selectedCategories">{{category}}
+                                </div>
+                            </form>
+                        </ul>
+                    </li>
                 </ul>
+
                 <hr>
                 <div class="">
-                    <button class="btn white" (click)="logOut()"><span><i class="bi bi-box-arrow-left"></i></span> LogOut</button>
+                    <button class="btn white" (click)="logOut()"><span><i class="bi bi-box-arrow-left"></i></span>
+                        LogOut</button>
                 </div>
             </div>
         </div>
         <div class="col py-3">
-            <h1 class="p-3 fw-bold" style="color: #3c4680; font-family: Poor Richard;"> Welcome {{welcom}} </h1>
+
             <div *ngIf="isLoggedIn">
+                <h1 class="ps-3 pt-1 fw-bold" style="color: #3c4680; font-family: Poor Richard;"> Welcome {{welcom}} </h1>
                 <router-outlet></router-outlet>
             </div>
         </div>

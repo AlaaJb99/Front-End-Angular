@@ -1,14 +1,19 @@
 <div class="" *ngIf="purchasedPage">
-    <h2 class="fs-2 fw-bold"> Your Purchased Coupons</h2>
-    <p>You can View it's details</p>
+    <h2 class="fw-bold ps-4" style="color: #3c4680; font-family: Poor Richard;"> Here are your Purchased Coupons</h2>
+    <h4 class="ps-4" style="color: #3c4680; font-family: Poor Richard;">You can View it's details</h4>
 </div>
-<div class="row">
+<div  *ngIf="!purchasedPage">
+    <h4 class="ps-4 fw-bold" style="color: #3c4680; font-family: Poor Richard;">You can search for
+        what you want or choose a categories from the left side or get one of the recommended coupons</h4>
+</div>
+<div class="row mt-4">
     <div class="col-md-5 mx-5" *ngIf="!purchasedPage">
         <div class="input-group">
-            <input class="form-control border-end-0 border rounded-pill" type="search" placeholder="Search" [(ngModel)] = "searchInput">
+            <input class="form-control border-end-0 border rounded-pill" type="search" placeholder="Search"
+                [(ngModel)]="searchInput">
             <span class="input-group-append">
-                <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill"
-                    type="button" (click)="searchCoupon()">
+                <button class="btn btn-outline-secondary bg-white border-bottom-0 border rounded-pill" type="button"
+                    (click)="searchCoupon()">
                     <i class="bi bi-search"></i>
                 </button>
             </span>
@@ -22,23 +27,23 @@
     </div>
 </div>
 <div class="row p-4">
-    
-        <div class="card" style="width: 18rem;" *ngFor="let coupon of coupons">
-            <img src="/assets/img/discount1.png" class="card-img-top" alt="discount">
-            <div class="card-body">
-                <h5 class="card-title">{{ coupon.title }}</h5>
-                <p class="card-text">{{ coupon.description }}</p>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary" (click)="viewCoupon(coupon)">View</button>
-                    <button type="button" class="btn btn-success" (click)="purchaseCoupon(coupon)"
-                        *ngIf="!purchasedPage">Purchase</button>
-                    <!-- <button type="button" class="btn btn-danger" (click)="deletePurchased(coupon)"
+
+    <div class="card" style="width: 18rem;" *ngFor="let coupon of coupons">
+        <img src="/assets/img/discount1.png" class="card-img-top" alt="discount">
+        <div class="card-body">
+            <h5 class="card-title">{{ coupon.title }}</h5>
+            <p class="card-text">{{ coupon.description }}</p>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-primary" (click)="viewCoupon(coupon)">View</button>
+                <button type="button" class="btn btn-success" (click)="purchaseCoupon(coupon)"
+                    *ngIf="!purchasedPage">Purchase</button>
+                <!-- <button type="button" class="btn btn-danger" (click)="deletePurchased(coupon)"
                         *ngIf="purchasedPage">Delete</button> -->
-                </div>
-                <div class="alert alert-warning" *ngIf="couponPurchased"><span><i
-                            class="bi bi-exclamation-triangle"></i></span>
-                    You Already purchased This coupon
-                </div>
+            </div>
+            <div class="alert alert-warning" *ngIf="couponPurchased"><span><i
+                        class="bi bi-exclamation-triangle"></i></span>
+                You Already purchased This coupon
             </div>
         </div>
+    </div>
 </div>

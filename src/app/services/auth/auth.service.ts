@@ -31,25 +31,26 @@ export class AuthService {
           sessionStorage.setItem("token", tokenStr);
           sessionStorage.setItem("roles", userData.roles);
           //sessionStorage.setItem("roles", JSON.stringify(userData.roles));
-          this.loggedUserEmail=email;
-          this.loggedUserPassword=password;
+          this.loggedUserEmail = email;
+          this.loggedUserPassword = password;
           return userData;
         }));
   }
 
   logout() {
     sessionStorage.clear()
+   // console.clear();
     this.router.navigate(['/login']);
   }
 
-  getEmail(){
-    return sessionStorage.getItem("email")+"";
+  getEmail() {
+    return sessionStorage.getItem("email") + "";
   }
-  
+
   isLoggedIn(): boolean {
     return sessionStorage.getItem('token') !== null;
-  //   const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
-  // return expiry * 1000 > Date.now();
+    //   const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+    // return expiry * 1000 > Date.now();
   }
 
 
